@@ -4,4 +4,10 @@
 
 {% block body %}
 <h1>Liste des tâches</h1>
+
+{% for task in tasks %}
+    <h2>{{task.title}} -- {{task.category.nom}}</h2>
+    <p>{{task.createdAt | date('d/m/Y')}} </p>
+{% endfor %}
+
 {% endblock %}
