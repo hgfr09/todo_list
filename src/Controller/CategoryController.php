@@ -42,12 +42,41 @@ final class CategoryController extends AbstractController
             'form' => $form
         ]);
     }
-    
-    #[Route('/{id}', name: 'show')]
-    public function show(Category $category) : Response
+
+    #[Route('/{id}', name: 'show', methods: ['GET'])]
+    public function show(Category $category): Response
     {
         return $this->render('category/show.html.twig', [
-            'category'=>$category
+            'category' => $category
         ]);
+    }
+
+    #[Route('/{id}/edit', name: 'edit')]
+    public function edit(Category $category, Request $request, EntityManagerInterface $em): Response
+    {
+        $form = $this->createForm(CategoryType::class, $category);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->flush();
+
+            $this->addFlash('success', 'Catégorie modifiée avec succès.');
+
+            return $this->redirectToRoute('category_show', ['id' => $category->getId()]);
+        }
+
+        return $this->render('category/edit.html.twig', [
+            'form' => $form
+        ]);
+    }
+
+    #[Route('/{id}', methods: ['POST'], name: 'delete')]
+    public function delete(Category $category, EntityManagerInterface $em)
+    {
+        $em->remove($category);
+        $em->flush();
+
+        $this->addFlash('success', 'Catégorie supprimée avec succès.');
+        return $this->redirectToRoute('category_index');
     }
 }
