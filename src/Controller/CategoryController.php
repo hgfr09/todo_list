@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/categories', name: "category_")]
 final class CategoryController extends AbstractController
@@ -23,6 +24,7 @@ final class CategoryController extends AbstractController
     }
 
     #[Route('/new', name: 'new')]
+    #[IsGranted('ROLE_USER')]
     public function new(Request $request, EntityManagerInterface $em): Response
     {
         $category = new Category;
@@ -52,6 +54,7 @@ final class CategoryController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'edit')]
+    #[IsGranted('ROLE_USER')]
     public function edit(Category $category, Request $request, EntityManagerInterface $em): Response
     {
         $form = $this->createForm(CategoryType::class, $category);
@@ -71,6 +74,7 @@ final class CategoryController extends AbstractController
     }
 
     #[Route('/{id}', methods: ['POST'], name: 'delete')]
+    #[IsGranted('ROLE_USER')]
     public function delete(Category $category, EntityManagerInterface $em)
     {
         $em->remove($category);
