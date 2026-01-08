@@ -3,7 +3,13 @@
 {% block title %}Catégories{% endblock %}
 
 {% block body %}
+
+    <h2>Liste des catégories</h2>
+    <a href="{{path('category_new')}}">Nouvelle catégorie</a>
+
     {% for category in categories %}
-        <h2>{{category.nom}} </h2>
+        <h4>{{category.nom}} </h4>
     {% endfor %}
+
+
 {% endblock %}
