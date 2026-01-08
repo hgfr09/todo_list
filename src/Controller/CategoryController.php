@@ -33,12 +33,21 @@ final class CategoryController extends AbstractController
             $em->persist($category);
             $em->flush();
 
-            return $this->redirectToRoute('category_index');
+            $this->addFlash('success', 'Catégorie ajouté avec succès.');
 
+            return $this->redirectToRoute('category_index');
         }
 
         return $this->render('category/new.html.twig', [
             'form' => $form
+        ]);
+    }
+    
+    #[Route('/{id}', name: 'show')]
+    public function show(Category $category) : Response
+    {
+        return $this->render('category/show.html.twig', [
+            'category'=>$category
         ]);
     }
 }

@@ -20,6 +20,13 @@
                 </ul>
             </nav>
         </header>
+
+            {% for message in app.flashes('success') %}
+                <div class="notice">
+                            {{ message }}
+                </div>
+            {% endfor %}
+
         {% block body %}{% endblock %}
     </body>
 </html>

@@ -8,8 +8,9 @@
     <a href="{{path('category_new')}}">Nouvelle catégorie</a>
 
     {% for category in categories %}
-        <h4>{{category.nom}} </h4>
+        <h4>
+            <a href="{{path('category_show', {id:category.id})}}">{{category.nom}}</a>
+        </h4>
     {% endfor %}
-
 
 {% endblock %}
