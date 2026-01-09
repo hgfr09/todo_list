@@ -1,0 +1,13 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    Affichage tâche
+{% endblock %}
+
+
+{% block body %}
+
+    <h4>{{task.title}} -- {{task.category.nom}} </h4>
+    <p> {{task.createdAt | date('d/m/Y')}} </p>
+
+{% endblock %}
