@@ -5,7 +5,10 @@
 {% block body %}
 
     <h2>Liste des catégories</h2>
+    
+    {% if is_granted('ROLE_USER') %}
     <a href="{{path('category_new')}}">Nouvelle catégorie</a>
+    {% endif %}
 
     {% for category in categories %}
         <h4>
